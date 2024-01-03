@@ -30,7 +30,7 @@ public class AuthorDaoImplTest {
 
     @Test
     public void testThatCreateAuthorGeneratesCorrectSql(){
-        Author author = TestDataUtil.createTestAuthor();
+        Author author = TestDataUtil.createTestAuthorA();
 
         underTest.create(author);
 
@@ -48,6 +48,35 @@ public class AuthorDaoImplTest {
                 eq("SELECT id, name, age FROM authors WHERE id = ? LIMIT 1"),
                 ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any(),
                 eq(1L)
+        );
+    }
+
+    @Test
+    public void tastThatFindManyGeneratesCorrectSql(){
+        underTest.find();
+        verify(jdbcTemplate).query(
+                eq("SELECT id, name, age FROM authors"),
+                ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any()
+        );
+    }
+
+    @Test
+    public void testThatUpdateGeneratesCorrectSql(){
+        Author author = TestDataUtil.createTestAuthorB();
+        underTest.update(author, author.getId() );
+
+        verify(jdbcTemplate).update(
+                "UPDATE authors SET id = ?, name = ?, age = ? WHERE id = ?",
+                2L, "Francesco Bianchi", 60, 2L
+        );
+    }
+
+    @Test
+    public void testThatDeleteGeneratesCorrectSql(){
+        underTest.delete(1L);
+        verify(jdbcTemplate).update(
+                "DELETE FROM authors WHERE id = ?",
+                1L
         );
     }
 }

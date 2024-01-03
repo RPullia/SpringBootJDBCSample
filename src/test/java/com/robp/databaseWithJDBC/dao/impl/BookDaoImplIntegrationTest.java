@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -31,10 +30,10 @@ public class BookDaoImplIntegrationTest {
     @Test
     public void testThatBookCanBeCreatedAndRecorded(){
 
-        Author author = TestDataUtil.createTestAuthor();
+        Author author = TestDataUtil.createTestAuthorA();
         authorDao.create(author);
 
-        Book book = TestDataUtil.createTestBook();
+        Book book = TestDataUtil.createTestBookA();
         underTest.create(book);
         Optional<Book> result = underTest.findOne(book.getIsbn());
         assertThat(result).isPresent();
