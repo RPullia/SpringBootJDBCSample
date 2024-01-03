@@ -1,8 +1,6 @@
-package com.robp.databaseWithJDBC.dao;
+package com.robp.databaseWithJDBC.dao.impl;
 
-import com.robp.databaseWithJDBC.dao.impl.AuthorDaoImpl;
-import com.robp.databaseWithJDBC.dao.impl.BookDaoImpl;
-import com.robp.databaseWithJDBC.domain.Author;
+import com.robp.databaseWithJDBC.TestDataUtil;
 import com.robp.databaseWithJDBC.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,11 +24,7 @@ public class BookDaoImplTest {
 
     @Test
     public void testThatCreateBookGeneratesCorrectSql(){
-        Book book = Book.builder()
-                .isbn("1235-56-6642-122")
-                .title("Il signore degli anelli")
-                .authorId(1L)
-                .build();
+        Book book = TestDataUtil.createTestBook();
 
         underTest.create(book);
 

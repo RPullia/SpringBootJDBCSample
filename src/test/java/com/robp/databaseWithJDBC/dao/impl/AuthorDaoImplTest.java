@@ -1,8 +1,8 @@
-package com.robp.databaseWithJDBC.dao;
+package com.robp.databaseWithJDBC.dao.impl;
 
 
 
-import com.robp.databaseWithJDBC.dao.impl.AuthorDaoImpl;
+import com.robp.databaseWithJDBC.TestDataUtil;
 import com.robp.databaseWithJDBC.domain.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,6 @@ import static org.mockito.Mockito.verify;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 //Unit test per AuthorDaoImpl
 
@@ -31,11 +30,7 @@ public class AuthorDaoImplTest {
 
     @Test
     public void testThatCreateAuthorGeneratesCorrectSql(){
-        Author author = Author.builder()
-                .id(1L)
-                .name("Mario Rossi")
-                .age(40)
-                .build();
+        Author author = TestDataUtil.createTestAuthor();
 
         underTest.create(author);
 
